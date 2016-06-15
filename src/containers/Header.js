@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Navigation from 'template/layout/header/Navigation'
+
 export default class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -26,9 +28,9 @@ export default class Header extends React.Component {
   }
 
   collapse() {
-    console.log('putin')
     this.setState({collapsed: !this.state.collapsed})
   }
+  
 
   sidebarCollapse() {
     if(document.getElementsByTagName("body")[0].className.match(/sidebar-collapsed/)) {
@@ -111,12 +113,7 @@ export default class Header extends React.Component {
           </li>
         </ul>
 
-        <div className={"yamm navbar-left navbar-collapse collapse" + ((this.state.mobile && this.state.collapsed) || (!this.state.mobile) ? ' in' : '')}>
-          <ul className="nav navbar-nav">
-            <li><a href="" target="_blank">Панель о хуйне</a></li>
-            <li><a href="" target="_blank">Панель о другой хуйне</a></li>
-          </ul>
-        </div>
+        <Navigation mobile={this.state.mobile} collapsed={this.state.collapsed} />
 
       </header>)
   }
