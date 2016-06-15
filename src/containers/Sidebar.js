@@ -5,16 +5,15 @@ import {Item, Separator, User} from 'template/layout/sidebar'
 
 export default class Sidebar extends React.Component {
   render() {
-    const {user} = this.props.data;
     return (
 <div className={"static-sidebar-wrapper " + (this.props.color ? 'sidebar-'+this.props.color : 'sidebar-default')}>
   <div className="static-sidebar">
     <div className="sidebar">
-      <User data={user}/>
       <div className="widget stay-on-collapse" id="widget-sidebar">
         <nav role="navigation" className="widget-body">
           <ul className="acc-menu">
             <Separator name="Main section" />
+              <User/>
               <Item name="Dashboard"          leftIcon={{style: 'fa fa-home'}}/>
               <Item name="Example"            leftIcon={{style: 'fa fa-rocket'}} url="app/example"/>
               <Item name="Sign page"          leftIcon={{style: 'fa fa-key'}} url="/sign"/>

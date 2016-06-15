@@ -1,11 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import promiseMiddleware from '../middlewares/promise'
-import authMiddleware from '../middlewares/auth'
 import reducer from '../reducers';
 import DevTools from '../containers/DevTools'
 
 const enhancer = compose(
-  applyMiddleware(promiseMiddleware, authMiddleware),
+  applyMiddleware(promiseMiddleware),
   DevTools.instrument()
 )
 

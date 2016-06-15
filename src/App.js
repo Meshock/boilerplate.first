@@ -7,23 +7,35 @@ import Sidebar  from './containers/Sidebar'
 import Header   from './containers/Header'
 import Main     from './containers/Main'
 
-import * as UserActions   from './actions/user'
 import * as LayoutActions from './actions/layout'
 
 
 
 class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.resize = this.resize.bind(this)
+  }
+  
   componentWillMount() {
     this.setState({})
+    window.addEventListener('resize', this.resize)
+    this.resize()
+  }
+
+  resize() {
+    if(window.innerWidth < 768) {
+      document.body.classList.add('sidebar-collapsed');
+    }else{
+      document.body.classList.remove('sidebar-collapsed');
+    }
   }
 
   render() {
-    if(!localStorage.getItem('user_id') ||   !localStorage.getItem('token')) {
-      window.location = '#/sign'
-    }
+
     return (
           <div>
-            {this.props.user.status && <div>
+            <div>
             <Header color="default"/>
               <div id="wrapper">
                 <div id="layout-static">
@@ -38,7 +50,7 @@ class App extends React.Component {
                   </div>
                 </div>
               </div>
-            </div>}
+            </div>
           </div>)
   }
 }
@@ -46,13 +58,12 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    layout: state.layout,
-    user: state.user
+    layout: state.layout
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(Object.assign({}, UserActions, LayoutActions), dispatch);
+  return bindActionCreators(Object.assign({}, LayoutActions), dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
