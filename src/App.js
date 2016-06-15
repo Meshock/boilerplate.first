@@ -16,7 +16,7 @@ class App extends React.Component {
     super(props)
     this.resize = this.resize.bind(this)
   }
-  
+
   componentWillMount() {
     this.setState({})
     window.addEventListener('resize', this.resize)
@@ -26,8 +26,10 @@ class App extends React.Component {
   resize() {
     if(window.innerWidth < 768) {
       document.body.classList.add('sidebar-collapsed');
+      document.body.classList.add('topnav-collapsed');
     }else{
       document.body.classList.remove('sidebar-collapsed');
+      document.body.classList.remove('topnav-collapsed');
     }
   }
 

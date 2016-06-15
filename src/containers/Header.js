@@ -5,10 +5,14 @@ export default class Header extends React.Component {
     super(props);
     this.sidebarCollapse = this.sidebarCollapse.bind(this)
     this.resize = this.resize.bind(this)
+    this.collapse = this.collapse.bind(this)
   }
 
   componentWillMount() {
-    this.setState({mobile: false});
+    this.setState({
+      collapsed: false,
+      mobile: false
+    });
     this.resize()
     window.addEventListener('resize', this.resize)
   }
@@ -19,6 +23,11 @@ export default class Header extends React.Component {
     }else{
       this.setState({mobile: false})
     }
+  }
+
+  collapse() {
+    console.log('putin')
+    this.setState({collapsed: !this.state.collapsed})
   }
 
   sidebarCollapse() {
@@ -39,15 +48,8 @@ export default class Header extends React.Component {
 
         <a className="navbar-brand" href="index.html">Хуяк-хуяк и в продакшн</a>
 
-        <div className={"yamm navbar-left navbar-collapse collapse" + (this.state.mobile ? '' : ' in')}>
-          <ul className="nav navbar-nav">
-            <li><a href="" target="_blank">Панель о хуйне</a></li>
-            <li><a href="" target="_blank">Панель о другой хуйне</a></li>
-          </ul>
-        </div>
-
         <ul className="nav navbar-nav toolbar pull-right" style={{paddingRight: '10px'}}>
-          <li className="toolbar-icon-bg" style={{display: (this.state.mobile ? 'block' : 'none')}} onClick=""><a><span className="icon-bg"><i className="fa fa-fw fa-ellipsis-h"></i></span></a></li>
+          <li className="toolbar-icon-bg" style={{display: (this.state.mobile ? 'block' : 'none')}} onClick={() => this.collapse()}><a><span className="icon-bg"><i className="fa fa-fw fa-ellipsis-h"></i></span></a></li>
           <li className="dropdown toolbar-icon-bg">
             <a href="index.html#" className="hasnotifications dropdown-toggle" data-toggle='dropdown'><span className="icon-bg"><i className="fa fa-fw fa-bell"></i></span><span className="badge badge-info">5</span></a>
             <div className="dropdown-menu dropdown-alternate notifications arrow">
@@ -108,6 +110,13 @@ export default class Header extends React.Component {
             </div>
           </li>
         </ul>
+
+        <div className={"yamm navbar-left navbar-collapse collapse" + ((this.state.mobile && this.state.collapsed) || (!this.state.mobile) ? ' in' : '')}>
+          <ul className="nav navbar-nav">
+            <li><a href="" target="_blank">Панель о хуйне</a></li>
+            <li><a href="" target="_blank">Панель о другой хуйне</a></li>
+          </ul>
+        </div>
 
       </header>)
   }
